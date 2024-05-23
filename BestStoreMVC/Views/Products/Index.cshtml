@@ -1,0 +1,56 @@
+﻿@model List<Product>
+@{
+}
+<link href="~/css/productlist.css" rel="stylesheet" />
+<link href="~/css/orderproducts.css" rel="stylesheet" />
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Product List</h1>
+
+        <form asp-controller="Orders" asp-action="PlaceOrder" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                        <th>Add to Cart</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list">
+                    @for (var i = 0; i < Model.Count; i++)
+                    {
+                        var product = Model[i];
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>@product.Description</td>
+                            <td>@product.Category</td>
+                            <td>@product.Price</td>
+                            <td style="width: 25%;">
+                                <img style="width: 100%;" src="/Products/@product.ImageFileName" />
+                            </td>
+                            <td>
+                                <input type="hidden" name="orderItems[@i].ProductId" value="@product.Id" />
+                                <input type="hidden" name="orderItems[@product.Id].Price" value="@product.Price" />
+                                <input style="width:50%" type="number" onchange="updateTotal()" name="orderItems[@i].Quantity" min="0" value="0" id="quantity-@product.Id" class="quantity-input" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div id="total-price">Total Price: $0.00</div>
+            <button class="add-btn" id="placeNewOrderId" disabled>Place Your Order</button>
+        </form>
+    </div>
+</body>
+</html>
+<script src="~/js/orders.js"></script>

@@ -1,0 +1,37 @@
+﻿@model List<Order>
+@{
+
+}
+<link href="~/css/productlist.css" rel="stylesheet" />
+<link href="~/css/orderproducts.css" rel="stylesheet" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Order List</h1>
+        <form asp-controller="Orders" asp-action="PlaceOrder" method="post">
+            <table>
+                <tbody id="Order-list">
+                    @foreach (var Order in Model)
+                    {
+                        <tr>
+                            <td style="cursor:pointer">
+                                Placed on @Order.OrderDate
+                                <a asp-controller="Orders" asp-action="OrderDetails" asp-route-id="@Order.Id">
+                                    Click to View Details >
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
+

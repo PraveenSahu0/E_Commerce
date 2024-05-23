@@ -1,0 +1,42 @@
+﻿@model List<VwOderDetails>
+@{
+}
+<link href="~/css/productlist.css" rel="stylesheet" />
+<link href="~/css/orderproducts.css" rel="stylesheet" />
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Orders</h1>
+
+        <form asp-controller="Orders" asp-action="PlaceOrder" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list">
+                    @foreach (var Order in Model)
+                    {
+                        <tr>
+                            <td style="width: 25%;">
+                                <img style="width: 100%;" src="/Products/@Order.ImageFileName" />
+                            </td>
+                            <td>@Order.Name</td>
+                            <td>@Order.Quantity</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

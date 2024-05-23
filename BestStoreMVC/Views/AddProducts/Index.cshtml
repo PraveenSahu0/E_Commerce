@@ -1,0 +1,71 @@
+﻿@model List<Product>
+@{
+
+}
+<link href="~/css/productlist.css" rel="stylesheet" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Product List</h1>
+        <button class="add-btn" id="addNewProductId">Add New Product</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="product-list">
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>
+                            @product.Name
+                        </td>
+                        <td>
+                            @product.Description
+                        </td>
+                        <td>
+                            @product.Category
+                        </td>
+                        <td>
+                            @product.Price
+                        </td>
+                        <td style="width: 25%;">
+                            <img style="width: 100%;" src="/Products/@product.ImageFileName" />
+
+                        </td>
+                        <td>
+                            <button style="background:darkblue;color:aliceblue">Edit</button>
+
+                        </td>
+                        <td>
+                            <button asp-controller="AddProducts" asp-action="DeleteProduct" asp-route-id="@product.Id" style="background:darkred;color:aliceblue">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @{
+       
+        await Html.RenderPartialAsync("AddNewProductPage", Model.FirstOrDefault());
+    }
+
+    <script src="~/js/productlist.js"></script>
+
+</body>
+</html>
+

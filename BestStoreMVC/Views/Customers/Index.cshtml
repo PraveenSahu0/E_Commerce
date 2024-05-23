@@ -1,0 +1,14 @@
+﻿@model List<BestStoreMVC.Models.Customer>
+
+<h2>Customers</h2>
+<table class="table">
+    <tr>
+        <th>Customer Name</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td> @item.Name</td>
+        </tr>
+    }
+</table>
